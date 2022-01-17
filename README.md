@@ -2,11 +2,13 @@
 
 Hi! This repository includes smart contracts in solidity for Ethereum, Avalanche and other blockchains.
 
+*IT IS CREATED FOR LEARNING PURPOSE*
+
 # ERC20
 
 ERC20 is standart for Fungible Tokens, in other words, the token contract has properties and capabilities which makes all tokens same.
  
-ERC20.sol contract implementation serves minting, burning and pausing features.
+ERC20.sol contract implementation serves minting, burning features.
 
 In order to create own token contract, the contract should be extended from ERC20.sol and Pausable.sol (if you need!).
 
