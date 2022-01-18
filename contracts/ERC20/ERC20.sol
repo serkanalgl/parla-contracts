@@ -39,7 +39,7 @@ contract ERC20 is IERC20, Ownable {
     /**
      * @dev Returns the name of the token.
      */
-    function name() external view virtual returns (string memory) {
+    function name() public view virtual override returns (string memory) {
         return _name;
     }
 
@@ -47,7 +47,7 @@ contract ERC20 is IERC20, Ownable {
      * @dev Returns the symbol of the token, usually a shorter version of the
      * name.
      */
-    function symbol() external view virtual returns (string memory) {
+    function symbol() public view virtual override returns (string memory) {
         return _symbol;
     }
 
@@ -64,14 +64,14 @@ contract ERC20 is IERC20, Ownable {
      * no way affects any of the arithmetic of the contract, including
      * {IERC20-balanceOf} and {IERC20-transfer}.
      */
-    function decimal() external view virtual returns (uint8) {
+    function decimals() public view virtual override returns (uint8) {
         return 18;
     }
 
     /**
      * @dev See {IERC20-totalSupply}.
      */
-    function totalSupply() external view virtual override returns (uint256) {
+    function totalSupply() public view virtual override returns (uint256) {
         return _totalSupply;
     }
 
@@ -79,7 +79,7 @@ contract ERC20 is IERC20, Ownable {
      * @dev See {IERC20-balanceOf}.
      */
     function balanceOf(address who)
-        external
+        public
         view
         virtual
         override
@@ -92,7 +92,7 @@ contract ERC20 is IERC20, Ownable {
      * @dev See {IERC20-allowance}.
      */
     function allowance(address owner, address spender)
-        external
+        public
         view
         virtual
         override
@@ -112,7 +112,7 @@ contract ERC20 is IERC20, Ownable {
      * - `spender` cannot be the zero address.
      */
     function approve(address spender, uint256 amount)
-        external
+        public
         virtual
         override
         returns (bool)
@@ -130,7 +130,7 @@ contract ERC20 is IERC20, Ownable {
      * - the caller must have a balance of at least `amount`.
      */
     function transfer(address recipient, uint256 amount)
-        external
+        public
         virtual
         override
         returns (bool)
@@ -159,7 +159,7 @@ contract ERC20 is IERC20, Ownable {
         address sender,
         address recipient,
         uint256 amount
-    ) external virtual override returns (bool) {
+    ) public virtual override returns (bool) {
         uint256 currentAllowance = _allowances[sender][msg.sender];
         if (currentAllowance != type(uint256).max) {
             require(
@@ -184,7 +184,7 @@ contract ERC20 is IERC20, Ownable {
      * @param addedValue The amount of tokens to increase the allowance by.
      */
     function increaseAllowance(address spender, uint256 addedValue)
-        external
+        public
         returns (bool)
     {
         _approve(
@@ -205,7 +205,7 @@ contract ERC20 is IERC20, Ownable {
      * @param subtractedValue The amount of tokens to decrease the allowance by.
      */
     function decreaseAllowance(address spender, uint256 subtractedValue)
-        external
+        public
         returns (bool)
     {
         uint256 currentAllowance = _allowances[msg.sender][spender];
@@ -366,7 +366,7 @@ contract ERC20 is IERC20, Ownable {
         _beforeTokenTransfer(account, address(0), amount);
 
         _balances[account] = accountBalance.sub(amount);
-        _totalSupply.sub(amount);
+        _totalSupply = _totalSupply.sub(amount);
 
         emit Transfer(account, address(0), amount);
     }

@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./Ownable.sol";
 
-contract Pausable is Ownable{
+abstract contract Pausable is Ownable{
 
     modifier notPaused {
         require(!_paused, "This action cannot be performed while the contract is paused");
@@ -32,7 +32,7 @@ contract Pausable is Ownable{
      * @dev Contract is paused
      */
     function pause() external virtual onlyOwner{
-        require(_paused, "This contract is already paused");
+        require(!_paused, "This contract is already paused");
         _paused = true;
         emit PauseChanged(_paused);
     }
@@ -41,7 +41,7 @@ contract Pausable is Ownable{
      * @dev Contract is unpaused
      */
     function unpause() external virtual onlyOwner{
-        require(!_paused, "This contract is a already unpaused");
+        require(_paused, "This contract is a already unpaused");
         _paused = false;
         emit PauseChanged(_paused);
     }
